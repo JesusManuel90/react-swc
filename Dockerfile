@@ -20,7 +20,6 @@ RUN npm install
 
 COPY --from=builder /src/dist ./dist
 
-ENV VITE_PREVIEW_ALLOWED_HOSTS="react-swc.onrender.com,localhost,127.0.0.1"
 
 EXPOSE 3000
 
