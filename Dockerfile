@@ -4,8 +4,8 @@ WORKDIR /src
 
 COPY package*.json ./
 
-# Usar yarn en lugar de npm
-RUN npm install -g yarn && yarn install --frozen-lockfile
+# Yarn ya está instalado, usarlo directamente
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
@@ -20,8 +20,7 @@ WORKDIR /src
 
 COPY package*.json ./
 
-# Usar yarn para dependencias de producción
-RUN npm install -g yarn && yarn install --production --frozen-lockfile
+RUN yarn install --production --frozen-lockfile
 
 COPY --from=builder --chown=nextjs:nodejs /src/dist ./dist
 
