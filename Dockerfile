@@ -4,11 +4,12 @@ WORKDIR /src
 
 COPY package*.json ./
 
-RUN npm install
+# Usar yarn en lugar de npm
+RUN npm install -g yarn && yarn install --frozen-lockfile
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 FROM node:22.12.0-alpine AS runtime
 
@@ -19,7 +20,8 @@ WORKDIR /src
 
 COPY package*.json ./
 
-RUN npm install --omit=dev && npm cache clean --force
+# Usar yarn para dependencias de producción
+RUN npm install -g yarn && yarn install --production --frozen-lockfile
 
 COPY --from=builder --chown=nextjs:nodejs /src/dist ./dist
 
